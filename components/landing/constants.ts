@@ -105,24 +105,24 @@ export const PRICING_PLANS = [
   { 
     name: "Normal", 
     price: "0", 
-    desc: "Essential oversight for growing dormitories.",
-    features: ["Up to 50 residents", "Digital Key Access", "Basic Maintenance", "Standard Analytics"],
+    desc: "Essential for growing dormitory.",
+    features: ["1 dorm management", "Up to 30 rooms" ,"Up to 100 residents", "Basic analytics", "Basic Maintenance", "Basic management"],
     cta: "Start Free",
     highlighted: false
   },
   { 
     name: "Pro", 
-    price: "49", 
-    desc: "High-fidelity tools for campus-wide control.",
-    features: ["Unlimited residents", "IoT Laundry Sync", "Advanced Nutrition AI", "Priority Support", "Revenue Ops Suite"],
+    price: "50$", 
+    desc: "High-Quality for whole dorms management.",
+    features: ["Up to 5 dorms management", " 300 limit residents", "IoT Laundry Sync", "Advanced Nutrition AI", "Priority Support", "Revenue Ops Suite"],
     cta: "Connect Portfolio",
     highlighted: true 
   },
   { 
     name: "Premium", 
-    price: "149", 
-    desc: "Forensic analytics for institutional investors.",
-    features: ["Global Portfolio Sync", "White-label Experience", "Dedicated Data Analyst", "Custom API Access", "Audit-Ready Logs"],
+    price: "80$", 
+    desc: "Advanced mode with premium features.",
+    features: ["Unlimited dorms management", "Unlimited rooms and residents", "Dedicated Data Analyst", "Priority support", "Advanced finance system", "Audit-Ready Logs"],
     cta: "Request Demo",
     highlighted: false 
   }

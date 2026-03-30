@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Home, Zap } from 'lucide-react';
@@ -9,10 +9,26 @@ import { DriftingElement } from './DriftingElement';
 
 export const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
+  const [mounted, setMounted] = useState(false);
+  
+  // Wait until next animation frame to ensure DOM is settled
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const id = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    return () => cancelAnimationFrame(id);
+  }, []);
+  
+  // Always call useScroll, but give it an empty object until ref is ready
+  const { scrollYProgress: heroScroll } = useScroll(
+    mounted && heroRef.current
+      ? {
+          target: heroRef,
+          offset: ["start start", "end start"]
+        }
+      : ({} as any)
+  );
 
   const heroOpacity = useTransform(heroScroll, [0, 0.6], [1, 0]);
   const heroScale = useTransform(heroScroll, [0, 0.6], [1, 0.85]);

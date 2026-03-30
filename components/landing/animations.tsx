@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, forwardRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 export const TypingHeadline = ({ text }: { text: string }) => {
@@ -47,9 +47,36 @@ export const TypingHeadline = ({ text }: { text: string }) => {
 };
 
 export const ScrollRevealText = ({ children, className }: { children: React.ReactNode, className?: string }) => {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => {
+    // Wait for next tick to ensure DOM is fully settled
+    const timeout = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+    
+    return () => clearTimeout(timeout);
+  }, []);
+  
+  if (!mounted) {
+    return (
+      <div className={className}>
+        {children}
+      </div>
+    );
+  }
+  
+  return (
+    <ScrollRevealTextClient ref={ref} className={className}>
+      {children}
+    </ScrollRevealTextClient>
+  );
+};
+
+const ScrollRevealTextClient = forwardRef<HTMLDivElement, { children: React.ReactNode, className?: string }>(({ children, className }, ref) => {
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: ref as any,
     offset: ["start end", "end center"]
   });
 
@@ -62,7 +89,9 @@ export const ScrollRevealText = ({ children, className }: { children: React.Reac
       {children}
     </motion.div>
   );
-};
+});
+
+ScrollRevealTextClient.displayName = 'ScrollRevealTextClient';
 
 export const DriftingElement = ({ children, className, delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) => (
   <motion.div
