@@ -83,7 +83,7 @@ export default function LandingPage() {
 
               <motion.div variants={fadeInUp}>
                 <Button size="lg" className="h-14 px-8 rounded-none bg-foreground text-background font-black hover:bg-foreground/90 transition-all uppercase text-[11px] tracking-widest">
-                  Request Portfolio Audit
+                  Requests Portfolio Audit
                 </Button>
               </motion.div>
             </motion.div>
