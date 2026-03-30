@@ -6,7 +6,7 @@ import {
   Activity, Globe, Wallet, Zap, MapPin, Cpu, Shield, Receipt,
   ArrowUpRight, ArrowDownRight, BarChart3, DollarSign, Clock,
   CheckCircle2, AlertTriangle, RefreshCcw, Target, Calendar,
-  MoreHorizontal, ChevronRight, Download
+  MoreHorizontal, ChevronRight, Download, SprayCan
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -15,6 +15,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { DataTable } from './data-table';
 import { PropertyGrid } from './property-grid';
+import { RoomsManagement } from './rooms-management';
 import { FinanceLedger } from './finance-ledger';
 import { MaintenanceContent } from './maintenance-content';
 import { MealsContent } from './meals-content';
@@ -50,7 +51,81 @@ export function ModuleContent({ title, type, tier = 'normal', role = 'admin' }: 
     return <StaffContent tier={tier} />;
   }
 
-  if (['residents', 'audit-log'].includes(type)) {
+  if (type === 'residents') {
+    const data = [
+      { name: 'Sarah Johnson', email: 'sarah@university.edu', room: 'A-402', phone: '+44 7700 900123', status: 'Active' },
+      { name: 'Michael Chen', email: 'mchen@university.edu', room: 'B-102', phone: '+44 7700 900124', status: 'Active' },
+      { name: 'Emma Wilson', email: 'ewilson@university.edu', room: 'C-305', phone: '+44 7700 900125', status: 'Pending' },
+      { name: 'James Porter', email: 'jporter@university.edu', room: 'D-201', phone: '+44 7700 900126', status: 'Active' },
+      { name: 'Olivia Martinez', email: 'omartinez@university.edu', room: 'A-103', phone: '+44 7700 900127', status: 'Active' },
+    ];
+
+    const stats = {
+      total: data.length,
+      active: data.filter(r => r.status === 'Active').length,
+      pending: data.filter(r => r.status === 'Pending').length,
+    };
+
+    const columns = [
+      {
+        header: 'Resident',
+        accessor: 'name',
+        cell: (item: any) => (
+          <div className="flex items-center gap-3">
+            <Avatar className="h-8 w-8 rounded-lg">
+              <AvatarFallback className="bg-primary/10 text-primary font-bold text-[10px]">{item.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span className="font-bold text-foreground/90">{item.name}</span>
+          </div>
+        )
+      },
+      { header: 'Room', accessor: 'room' },
+      { header: 'Email', accessor: 'email' },
+      { header: 'Phone', accessor: 'phone' },
+      {
+        header: 'Status',
+        accessor: 'status',
+        cell: (item: any) => (
+          <Badge className={cn(
+            "text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border-none",
+            item.status === 'Active' ? "bg-emerald-500/10 text-emerald-600" : 
+            item.status === 'Pending' ? "bg-amber-500/10 text-amber-600" : "bg-muted text-muted-foreground"
+          )}>{item.status}</Badge>
+        )
+      },
+    ];
+
+    return (
+      <div className="space-y-6 animate-in fade-in duration-500">
+        {/* Quick Stats */}
+        <div className="grid grid-cols-3 gap-3">
+          <Card className="p-4 border-border/40 bg-card rounded-xl">
+            <div className="space-y-2">
+              <p className="text-[9px] font-black uppercase text-muted-foreground/40">Total</p>
+              <p className="text-2xl font-black">{stats.total}</p>
+            </div>
+          </Card>
+          <Card className="p-4 border-border/40 bg-card rounded-xl">
+            <div className="space-y-2">
+              <p className="text-[9px] font-black uppercase text-muted-foreground/40">Active</p>
+              <p className="text-2xl font-black text-emerald-600">{stats.active}</p>
+            </div>
+          </Card>
+          <Card className="p-4 border-border/40 bg-card rounded-xl">
+            <div className="space-y-2">
+              <p className="text-[9px] font-black uppercase text-muted-foreground/40">Pending</p>
+              <p className="text-2xl font-black text-amber-600">{stats.pending}</p>
+            </div>
+          </Card>
+        </div>
+
+        {/* Residents Table */}
+        <DataTable title={title} description="Directory of residents. Manage contacts, rooms, and account status." columns={columns} data={data} tier={tier} actionLabel="Add Resident" />
+      </div>
+    );
+  }
+
+  if (type === 'audit-log') {
     const columns = [
       {
         header: 'Entity',
@@ -64,7 +139,7 @@ export function ModuleContent({ title, type, tier = 'normal', role = 'admin' }: 
           </div>
         )
       },
-      { header: type === 'residents' ? 'Room' : 'Role', accessor: 'subtext' },
+      { header: 'Event', accessor: 'subtext' },
       {
         header: 'Status',
         accessor: 'status',
@@ -78,16 +153,13 @@ export function ModuleContent({ title, type, tier = 'normal', role = 'admin' }: 
       ...(!isNormal ? [{ header: 'Reference', accessor: 'ref' }] : []),
     ];
 
-    const data = type === 'residents' ? [
-      { name: 'Sarah Johnson', subtext: 'A-402', status: 'Active', ref: '#RES-8820' },
-      { name: 'Michael Chen', subtext: 'B-102', status: 'Active', ref: '#RES-8821' },
-      { name: 'Emma Wilson', subtext: 'C-305', status: 'Pending', ref: '#RES-8822' },
-    ] : [
-      { name: 'Robert Wilson', subtext: 'Manager', status: 'Live', ref: '#STF-102' },
-      { name: 'Jane Smith', subtext: 'Front Desk', status: 'Live', ref: '#STF-105' },
+    const data = [
+      { name: 'Sarah Johnson', subtext: 'Login', status: 'Active', ref: '#LOG-8820' },
+      { name: 'Michael Chen', subtext: 'Room Update', status: 'Active', ref: '#LOG-8821' },
+      { name: 'Emma Wilson', subtext: 'Payment', status: 'Pending', ref: '#LOG-8822' },
     ];
 
-    return <DataTable title={title} description={isNormal ? `Directory for ${type}.` : `Manage your ${type} with real-time sync.`} columns={columns} data={data} tier={tier} />;
+    return <DataTable title={title} description={isNormal ? `Audit log for ${type}.` : `Manage your ${type} with real-time sync.`} columns={columns} data={data} tier={tier} />;
   }
 
   if (type === 'dorms' || type === 'properties') {
@@ -521,17 +593,29 @@ export function ModuleContent({ title, type, tier = 'normal', role = 'admin' }: 
   }
 
   if (type === 'rooms') {
-    const items: any[] = [
-      { name: '101', type: 'Studio', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'Sarah Jenkins', rent: '£1,100', floor: 'Floor 1', lastChecked: '10:30 AM' },
-      { name: '102', type: 'Standard', status: 'Vacant', housekeeping: 'Dirty', maintenance: 'none', resident: 'None', rent: '£850', floor: 'Floor 1', lastChecked: 'Yesterday' },
-      { name: '103', type: 'Standard', status: 'Vacant', housekeeping: 'Inspected', maintenance: 'issue', resident: 'None', rent: '£850', floor: 'Floor 1', lastChecked: '09:15 AM' },
-      { name: '201', type: 'Suite', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'David Lawson', rent: '£1,450', floor: 'Floor 2', lastChecked: '08:45 AM' },
-      { name: '202', type: 'Standard', status: 'Arriving', housekeeping: 'Dirty', maintenance: 'none', resident: 'Marcus Reade', rent: '£850', floor: 'Floor 2', lastChecked: '11:20 AM' },
-      { name: '203', type: 'Standard', status: 'Departing', housekeeping: 'Clean', maintenance: 'none', resident: 'Emma Wilson', rent: '£850', floor: 'Floor 2', lastChecked: '07:30 AM' },
-      { name: '301', type: 'Studio', status: 'Vacant', housekeeping: 'Maintenance', maintenance: 'alert', resident: 'None', rent: '£1,100', floor: 'Floor 3', lastChecked: 'Just now' },
-      { name: '302', type: 'Standard', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'James Bond', rent: '£850', floor: 'Floor 3', lastChecked: '06:00 AM' },
+    const rooms = [
+      { id: '101', name: '101', type: 'Studio', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'Sarah Jenkins', rent: '£1,100', floor: 'Floor 1', lastChecked: '10:30 AM' },
+      { id: '102', name: '102', type: 'Standard', status: 'Vacant', housekeeping: 'Dirty', maintenance: 'none', resident: undefined, rent: '£850', floor: 'Floor 1', lastChecked: 'Yesterday' },
+      { id: '103', name: '103', type: 'Standard', status: 'Vacant', housekeeping: 'Inspected', maintenance: 'issue', resident: undefined, rent: '£850', floor: 'Floor 1', lastChecked: '09:15 AM' },
+      { id: '201', name: '201', type: 'Suite', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'David Lawson', rent: '£1,450', floor: 'Floor 2', lastChecked: '08:45 AM' },
+      { id: '202', name: '202', type: 'Standard', status: 'Arriving', housekeeping: 'Dirty', maintenance: 'none', resident: 'Marcus Reade', rent: '£850', floor: 'Floor 2', lastChecked: '11:20 AM' },
+      { id: '203', name: '203', type: 'Standard', status: 'Departing', housekeeping: 'Clean', maintenance: 'none', resident: 'Emma Wilson', rent: '£850', floor: 'Floor 2', lastChecked: '07:30 AM' },
+      { id: '301', name: '301', type: 'Studio', status: 'Vacant', housekeeping: 'Maintenance', maintenance: 'alert', resident: undefined, rent: '£1,100', floor: 'Floor 3', lastChecked: 'Just now' },
+      { id: '302', name: '302', type: 'Standard', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'James Bond', rent: '£850', floor: 'Floor 3', lastChecked: '06:00 AM' },
+      // Extended data for testing with many rooms
+      { id: '304', name: '304', type: 'Standard', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'Lisa Anderson', rent: '£850', floor: 'Floor 3', lastChecked: '05:15 AM' },
+      { id: '305', name: '305', type: 'Studio', status: 'Vacant', housekeeping: 'Dirty', maintenance: 'none', resident: undefined, rent: '£1,100', floor: 'Floor 3', lastChecked: 'Yesterday' },
+      { id: '401', name: '401', type: 'Suite', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'Tom Bradley', rent: '£1,450', floor: 'Floor 4', lastChecked: '10:00 AM' },
+      { id: '402', name: '402', type: 'Standard', status: 'Vacant', housekeeping: 'Inspected', maintenance: 'issue', resident: undefined, rent: '£850', floor: 'Floor 4', lastChecked: 'Just now' },
+      { id: '403', name: '403', type: 'Standard', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'Rachel Green', rent: '£850', floor: 'Floor 4', lastChecked: '09:30 AM' },
+      { id: '404', name: '404', type: 'Maintenance', status: 'Maintenance', housekeeping: 'Maintenance', maintenance: 'alert', resident: undefined, rent: '£0', floor: 'Floor 4', lastChecked: 'In Progress' },
+      { id: '405', name: '405', type: 'Standard', status: 'Arriving', housekeeping: 'Dirty', maintenance: 'none', resident: 'Noah Jackson', rent: '£850', floor: 'Floor 4', lastChecked: 'Today' },
+      { id: '501', name: '501', type: 'Studio', status: 'Occupied', housekeeping: 'Clean', maintenance: 'none', resident: 'Sophie Turner', rent: '£1,100', floor: 'Floor 5', lastChecked: '08:20 AM' },
+      { id: '502', name: '502', type: 'Standard', status: 'Vacant', housekeeping: 'Clean', maintenance: 'none', resident: undefined, rent: '£850', floor: 'Floor 5', lastChecked: 'Yesterday' },
+      { id: '503', name: '503', type: 'Standard', status: 'Occupied', housekeeping: 'Clean', maintenance: 'issue', resident: 'Alex Morgan', rent: '£850', floor: 'Floor 5', lastChecked: '07:45 AM' },
     ];
-    return <PropertyGrid title={title} description="Professional Operational Property Board." items={items} tier={tier} mode="rooms" />;
+
+    return <RoomsManagement title={title} description="Comprehensive room management with filtering, search, and multiple view modes" rooms={rooms} tier={tier} />;
   }
 
   if (type === 'settings') {
