@@ -63,8 +63,9 @@ export function TenantInvoicesView() {
   }[s] ?? 'bg-muted-foreground');
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show"
-      className="max-w-[1100px] mx-auto space-y-10 pb-20">
+    <motion.div variants={container} initial="hidden" animate="show">
+      <div 
+        className="space-y-10 pb-20">
 
       {/* Header */}
       <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border/40">
@@ -266,8 +267,9 @@ export function TenantMaintenanceView() {
   }[s] ?? 'bg-muted-foreground');
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show"
-      className="max-w-[1100px] mx-auto space-y-10 pb-20">
+    <motion.div variants={container} initial="hidden" animate="show">
+      <div 
+        className="space-y-10 pb-20">
 
       {/* Header */}
       <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-border/40">
@@ -459,6 +461,7 @@ export function TenantMaintenanceView() {
           </motion.div>
         )}
       </AnimatePresence>
+      </div>
     </motion.div>
   );
 }
@@ -473,8 +476,9 @@ export function TenantProfileView() {
   const [editMode, setEditMode] = useState(false);
 
   return (
-    <motion.div variants={container} initial="hidden" animate="show"
-      className="max-w-[1000px] mx-auto space-y-10 pb-20">
+    <motion.div variants={container} initial="hidden" animate="show">
+      <div 
+        className="space-y-10 pb-20">
 
       {/* Header */}
       <motion.div variants={item} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-border/40">

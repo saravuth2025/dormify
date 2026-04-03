@@ -61,7 +61,7 @@ export function SettingsContent({ title, tier = 'normal' }: SettingsContentProps
 
   const containerClasses = cn(
     "space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700",
-    isPremium ? "max-w-5xl mx-auto pb-10" : ""
+    isPremium ? "pb-10" : ""
   );
 
   const cardClasses = cn(

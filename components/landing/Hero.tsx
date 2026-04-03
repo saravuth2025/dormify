@@ -8,23 +8,13 @@ import { TypingHeadline } from './Typography';
 import { DriftingElement } from './DriftingElement';
 
 export const Hero = () => {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  
-  // Wait until next animation frame to ensure DOM is settled
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const id = requestAnimationFrame(() => {
-      setMounted(true);
-    });
-    return () => cancelAnimationFrame(id);
-  }, []);
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
   
   // Always call useScroll, but give it an empty object until ref is ready
   const { scrollYProgress: heroScroll } = useScroll(
-    mounted && heroRef.current
+    element
       ? {
-          target: heroRef,
+          target: { current: element },
           offset: ["start start", "end start"]
         }
       : ({} as any)
@@ -35,7 +25,7 @@ export const Hero = () => {
   const heroTextY = useTransform(heroScroll, [0, 0.6], [0, -100]);
 
   return (
-    <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section ref={setElement} className="relative h-screen flex items-center justify-center overflow-hidden">
       <motion.div 
         style={{ scale: heroScale, opacity: heroOpacity }}
         className="absolute inset-0 z-0"

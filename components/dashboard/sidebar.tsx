@@ -83,7 +83,6 @@ export function Sidebar({ role, tier = 'normal' }: SidebarProps) {
             { label: 'Residents', href: `${base}/residents`, icon: Building2 },
             { label: 'Meals', href: `${base}/meals`, icon: UtensilsCrossed },
             { label: 'Staff', href: `${base}/staff`, icon: ShieldCheck },
-            { label: 'Laundry', href: `${base}/laundry`, icon: Waves },
             { label: 'Payments', href: `${base}/payments`, icon: Wallet },
             { label: 'Reports', href: `${base}/reports`, icon: FileText },
             { label: 'Settings', href: `${base}/settings`, icon: Settings },
@@ -109,7 +108,7 @@ export function Sidebar({ role, tier = 'normal' }: SidebarProps) {
           ...(tier === 'premium' ? [{ label: 'Dorms', href: `${base}/dorms`, icon: Building2 }] : []),
           { label: 'Meals', href: `${base}/meals`, icon: UtensilsCrossed },
           { label: 'Staff', href: `${base}/staff`, icon: ShieldCheck },
-          { label: 'Laundry', href: `${base}/laundry`, icon: Waves },
+          ...(tier !== 'normal' ? [{ label: 'Laundry', href: `${base}/laundry`, icon: Waves }] : []),
           ...(tier !== 'normal' ? [{ label: 'Maintenance', href: `${base}/maintenance`, icon: Settings }] : []),
         ]
       },

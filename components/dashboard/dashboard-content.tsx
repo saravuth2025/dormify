@@ -55,20 +55,20 @@ export function DashboardContent({ role, tier = 'normal' }: DashboardContentProp
     return (
       <div className="space-y-6 animate-in fade-in duration-700">
 
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-border/40">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="space-y-0.5">
+            <div className="flex items-center gap-2 mb-1">
                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                <span className="text-[9px] font-bold uppercase tracking-widest text-primary">Intelligence Active</span>
             </div>
-            <h1 className="text-4xl font-black tracking-tight text-foreground">Global <span className="text-muted-foreground/30 font-medium">Portfolio</span></h1>
-            <p className="text-muted-foreground font-medium text-base max-w-xl leading-snug">Strategic oversight and predictive performance metrics.</p>
+            <h1 className="text-2xl font-black tracking-tight text-foreground">Global <span className="text-muted-foreground/30 font-medium">Portfolio</span></h1>
+            <p className="text-[11px] text-muted-foreground font-medium max-w-xl leading-snug">Strategic oversight and predictive performance metrics.</p>
           </div>
           <div className="flex items-center gap-2">
-             <Button variant="outline" className="rounded-xl h-10 px-4 font-bold border-border bg-card text-xs">
+             <Button variant="outline" size="sm" className="rounded-xl font-bold border-border bg-card shadow-sm h-10 px-4">
                 Market Brief
              </Button>
-             <Button className="rounded-xl h-10 px-6 font-black bg-primary text-primary-foreground shadow-lg shadow-primary/20 text-xs text-primary-foreground">
+             <Button size="sm" className="rounded-xl font-black bg-primary text-primary-foreground shadow-lg shadow-primary/20 h-10 px-4">
                 Expand Assets
              </Button>
           </div>
@@ -168,20 +168,20 @@ export function DashboardContent({ role, tier = 'normal' }: DashboardContentProp
   if (isPro) {
     return (
       <div className="space-y-6 animate-in fade-in duration-700">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-border/40">
-           <div className="space-y-1.5">
-             <div className="flex items-center gap-2">
-               <Badge className="bg-primary text-primary-foreground border-none text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-lg">Pro Hub</Badge>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-border/40">
+           <div className="space-y-2">
+             <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
+               <Badge className="bg-primary text-primary-foreground border-none text-[9px] font-bold uppercase tracking-widest px-2 py-0 rounded-md h-4 flex items-center">Pro Hub</Badge>
                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Operations Command</span>
              </div>
-             <h1 className="text-3xl font-black tracking-tight text-foreground">Property <span className="text-primary">Control</span></h1>
-             <p className="text-sm text-muted-foreground font-medium">Efficient management of your residential infrastructure.</p>
+             <h1 className="text-4xl font-black tracking-tight text-foreground">Property <span className="text-primary">Control</span></h1>
+             <p className="text-muted-foreground font-medium text-base max-w-xl leading-snug">Efficient management of your residential infrastructure.</p>
            </div>
            <div className="flex items-center gap-2">
-             <Button variant="outline" className="rounded-xl h-9 px-4 font-bold border-border bg-card text-xs">
+             <Button variant="outline" className="rounded-xl h-10 px-4 font-bold border-border bg-card text-xs">
                Daily Report
              </Button>
-             <Button className="rounded-xl h-9 px-5 font-black bg-primary text-primary-foreground shadow-lg shadow-primary/10 text-xs text-primary-foreground">
+             <Button className="rounded-xl h-10 px-6 font-black bg-primary text-primary-foreground shadow-lg shadow-primary/10 text-xs text-primary-foreground">
                Add Tenant
              </Button>
            </div>
@@ -288,13 +288,14 @@ export function DashboardContent({ role, tier = 'normal' }: DashboardContentProp
     return (
       <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-1000">
 
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div className="space-y-0.5">
-            <h1 className="text-2xl font-black tracking-tight text-foreground">Management Overview</h1>
-            <p className="text-[11px] text-muted-foreground font-medium flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              {today}
-            </p>
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-border/40">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-muted/50 border border-border/40">
+               <Calendar className="w-3.5 h-3.5 text-muted-foreground" />
+               <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{today}</span>
+            </div>
+            <h1 className="text-4xl font-black tracking-tight text-foreground">Management Overview</h1>
+            <p className="text-muted-foreground font-medium text-base max-w-xl leading-snug">Centralized control for your daily residential operations.</p>
           </div>
           <div className="flex items-center gap-2">
              <Button variant="outline" size="sm" className="rounded-xl font-bold border-border bg-card shadow-sm h-10 px-4">
@@ -407,36 +408,213 @@ export function DashboardContent({ role, tier = 'normal' }: DashboardContentProp
     );
   }
 
-  // ─── Chef fallback ───────────────────────────────────────────────────────
+  // ─── Chef Dashboard ──────────────────────────────────────────────────────
   if (isChef) {
+    const today = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric'
+    });
+
     return (
-      <div className="space-y-12 animate-in fade-in duration-700">
-        <div className="flex flex-col md:flex-row md:items-center gap-12 pb-16 border-b border-border/40">
-           <div className="w-32 h-32 rounded-[3.5rem] bg-foreground flex items-center justify-center text-background shadow-2xl">
-              <UtensilsCrossed className="w-14 h-14" />
-           </div>
-           <div className="space-y-4">
-              <h1 className="text-7xl font-bold tracking-tight text-foreground leading-none">Chef Console</h1>
-              <p className="text-muted-foreground font-medium text-2xl leading-relaxed">Orchestrating daily culinary services and meal planning.</p>
-           </div>
+      <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        
+        {/* Chef Header Section */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-orange-500/10">
+          <div className="space-y-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/5 border border-orange-500/10">
+              <UtensilsCrossed className="w-3.5 h-3.5 text-orange-600" />
+              <span className="text-[10px] font-black text-orange-600 uppercase tracking-[0.2em]">Kitchen Command</span>
+            </div>
+            <h1 className="text-5xl font-black tracking-tight text-foreground">
+              Welcome back, <span className="text-orange-500">Chef.</span>
+            </h1>
+            <p className="text-muted-foreground font-medium text-lg max-w-xl">
+              {today} · Kitchen is currently <span className="text-orange-600 font-bold uppercase">Active</span> for dinner prep.
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="text-right mr-4 hidden sm:block">
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Next Service</p>
+              <p className="text-sm font-black text-foreground">Dinner (18:30)</p>
+            </div>
+            <Button className="rounded-2xl h-12 px-6 font-black bg-orange-600 text-white shadow-xl shadow-orange-500/20 hover:bg-orange-700 transition-all uppercase text-[10px] tracking-widest">
+              <Plus className="w-4 h-4 mr-2" /> Create Menu
+            </Button>
+          </div>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        {/* Chef Stat Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { label: 'Total Daily Portions', value: '482', icon: Users },
-            { label: 'Kitchen Status',       value: 'Operational', icon: Zap },
-            { label: 'Active Plan',          value: 'High-Yield', icon: UtensilsCrossed },
+            { label: 'Expected Portions', value: '482', icon: Users, sub: '82% Confirmed', color: 'orange' },
+            { label: 'Hygiene Score', value: '98/100', icon: ShieldCheck, sub: 'Last Audit: 2d ago', color: 'emerald' },
+            { label: 'Inventory Level', value: '84%', icon: Layers, sub: '3 items low', color: 'blue' },
+            { label: 'Active Staff', value: '12', icon: Activity, sub: 'Shift: Afternoon', color: 'indigo' },
           ].map((stat, i) => (
-            <Card key={i} className="p-12 border-border/40 bg-card group hover:shadow-2xl transition-all duration-500 rounded-[3.5rem] overflow-hidden relative shadow-sm">
-              <div className="flex items-center gap-8 mb-12 relative z-10">
-                <div className="p-6 rounded-[1.5rem] bg-muted text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-inner">
-                  <stat.icon className="w-8 h-8" />
+            <Card key={i} className="p-6 border-border/40 bg-card rounded-[2rem] shadow-sm hover:shadow-md transition-all group overflow-hidden relative">
+              <div className="relative z-10">
+                <div className={cn(
+                  "w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-colors",
+                  stat.color === 'orange' ? "bg-orange-500/10 text-orange-600 group-hover:bg-orange-600 group-hover:text-white" :
+                  stat.color === 'emerald' ? "bg-emerald-500/10 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white" :
+                  stat.color === 'blue' ? "bg-blue-500/10 text-blue-600 group-hover:bg-blue-600 group-hover:text-white" :
+                  "bg-indigo-500/10 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white"
+                )}>
+                  <stat.icon className="w-5 h-5" />
                 </div>
-                <span className="text-[11px] font-bold uppercase tracking-[0.4em] text-muted-foreground">{stat.label}</span>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 mb-1">{stat.label}</p>
+                <h3 className="text-2xl font-black tracking-tight text-foreground">{stat.value}</h3>
+                <p className="text-[10px] font-bold text-muted-foreground/40 mt-1">{stat.sub}</p>
               </div>
-              <div className="text-6xl font-black tracking-tighter text-foreground relative z-10">{stat.value}</div>
-              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-muted/40 rounded-full group-hover:scale-150 transition-transform duration-1000" />
+              <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-muted/20 rounded-full group-hover:scale-150 transition-transform duration-700" />
             </Card>
           ))}
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-12 gap-8">
+          
+          {/* Today's Menu Section */}
+          <div className="lg:col-span-8 space-y-6">
+            <div className="flex items-center justify-between px-2">
+              <h3 className="text-sm font-black uppercase tracking-widest text-foreground">Today's Menu Selection</h3>
+              <Button variant="ghost" className="text-[10px] font-black uppercase tracking-widest text-orange-600 hover:text-orange-700 hover:bg-orange-500/5">
+                Full Weekly Plan <ArrowRight className="w-3 h-3 ml-2" />
+              </Button>
+            </div>
+
+            <div className="grid gap-4">
+              {[
+                { time: '07:00 - 09:30', meal: 'Breakfast Buffet', type: 'Morning', status: 'Completed', menu: 'Fresh pastries, organic yogurt, seasonal fruits, and eggs to order.' },
+                { time: '12:00 - 14:00', meal: 'Mediterranean Deli', type: 'Lunch', status: 'In Progress', menu: 'Grilled chicken souvlaki, Greek salad, handmade pita, and roasted vegetables.' },
+                { time: '18:30 - 20:30', meal: 'Slow-cooked Beef Bourguignon', type: 'Dinner', status: 'Upcoming', menu: 'Tender beef in red wine sauce with pearl onions, mushrooms, and buttered mash.' },
+              ].map((m, i) => (
+                <Card key={i} className={cn(
+                  "p-8 border-border/40 rounded-[2.5rem] shadow-sm relative overflow-hidden group hover:border-orange-500/20 transition-all",
+                  m.status === 'In Progress' ? "border-orange-500/30 bg-orange-500/[0.02]" : "bg-card"
+                )}>
+                  <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 relative z-10">
+                    <div className="space-y-4 flex-1">
+                      <div className="flex items-center gap-3">
+                        <Badge className={cn(
+                          "text-[9px] font-black uppercase px-3 py-1 rounded-full border-none",
+                          m.status === 'Completed' ? "bg-emerald-500/10 text-emerald-600" :
+                          m.status === 'In Progress' ? "bg-orange-500 text-white animate-pulse" :
+                          "bg-muted text-muted-foreground"
+                        )}>
+                          {m.status}
+                        </Badge>
+                        <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{m.time}</span>
+                      </div>
+                      <div>
+                        <h4 className="text-2xl font-black text-foreground">{m.meal}</h4>
+                        <p className="text-sm text-muted-foreground font-medium mt-2 leading-relaxed max-w-lg">
+                          {m.menu}
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {['Dairy Free', 'Gluten Free Option', 'High Protein'].map((tag, j) => (
+                          <span key={j} className="text-[8px] font-bold uppercase tracking-widest px-2 py-1 bg-muted/50 text-muted-foreground rounded-md border border-border/40">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-end gap-4 shrink-0">
+                      <div className="flex -space-x-2">
+                        {[1, 2, 3].map(j => (
+                          <div key={j} className="w-8 h-8 rounded-full border-2 border-background bg-muted overflow-hidden">
+                            <img src={`/avatar-${j}.jpg`} alt="" className="w-full h-full object-cover" />
+                          </div>
+                        ))}
+                        <div className="w-8 h-8 rounded-full border-2 border-background bg-orange-500 text-[10px] font-black text-white flex items-center justify-center">
+                          +12
+                        </div>
+                      </div>
+                      <Button variant="outline" className="rounded-xl font-black text-[9px] uppercase tracking-widest px-6 h-10 border-border group-hover:border-orange-500/30 transition-all">
+                        Update Menu
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Sidebar Section: Feedback & Stock */}
+          <div className="lg:col-span-4 space-y-8">
+            
+            {/* Resident Feedback */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-black uppercase tracking-widest text-foreground px-2">Resident Sentiment</h3>
+              <Card className="p-6 border-border/40 bg-card rounded-[2rem] shadow-sm space-y-6">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-3xl font-black text-foreground">4.8</span>
+                    <span className="text-xs font-bold text-muted-foreground">/ 5.0</span>
+                  </div>
+                  <div className="flex gap-0.5">
+                    {[1, 2, 3, 4, 5].map(star => (
+                      <Sparkles key={star} className={cn("w-3 h-3", star <= 4 ? "text-orange-500 fill-orange-500" : "text-muted")} />
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  {[
+                    { user: 'Sarah J.', comment: 'The salmon was perfectly cooked!', rating: 5 },
+                    { user: 'Alex M.', comment: 'Loved the vegan options today.', rating: 5 },
+                    { user: 'Jamie L.', comment: 'A bit more spice in the curry please.', rating: 4 },
+                  ].map((f, i) => (
+                    <div key={i} className="space-y-1.5 p-3 rounded-2xl hover:bg-muted/30 transition-colors">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[10px] font-black text-foreground">{f.user}</span>
+                        <span className="text-[9px] font-bold text-orange-500">★ {f.rating}.0</span>
+                      </div>
+                      <p className="text-[11px] text-muted-foreground font-medium leading-tight">"{f.comment}"</p>
+                    </div>
+                  ))}
+                </div>
+                
+                <Button variant="ghost" className="w-full text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-orange-600 h-10 border border-dashed border-border rounded-xl mt-2">
+                  View All Feedback
+                </Button>
+              </Card>
+            </div>
+
+            {/* Stock Alerts */}
+            <div className="space-y-4">
+              <h3 className="text-sm font-black uppercase tracking-widest text-foreground px-2">Stock Alerts</h3>
+              <Card className="p-6 border-border/40 bg-card rounded-[2rem] shadow-sm space-y-4">
+                {[
+                  { item: 'Organic Whole Milk', level: '12%', status: 'Critical' },
+                  { item: 'Unsalted Butter', level: '18%', status: 'Low' },
+                  { item: 'Prime Ribeye', level: '24%', status: 'Low' },
+                ].map((s, i) => (
+                  <div key={i} className="flex items-center gap-4">
+                    <div className={cn(
+                      "w-1.5 h-8 rounded-full",
+                      s.status === 'Critical' ? "bg-rose-500" : "bg-orange-500"
+                    )} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-black text-foreground truncate">{s.item}</p>
+                      <p className="text-[10px] font-bold text-muted-foreground uppercase">{s.level} remaining</p>
+                    </div>
+                    <Button size="icon" variant="ghost" className="rounded-lg h-8 w-8 text-orange-600 hover:bg-orange-500/10">
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
+                ))}
+                <div className="pt-2">
+                  <Button className="w-full h-12 rounded-2xl bg-foreground text-background font-black text-[10px] uppercase tracking-widest hover:bg-foreground/90 transition-all">
+                    Generate Purchase Order
+                  </Button>
+                </div>
+              </Card>
+            </div>
+
+          </div>
         </div>
       </div>
     );
@@ -444,121 +622,160 @@ export function DashboardContent({ role, tier = 'normal' }: DashboardContentProp
 
   // ─── Tenant Home Dashboard ────────────────────────────────────────────────
   return (
-    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 max-w-[1200px] mx-auto pb-20">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700 pb-20">
 
-      {/* Welcome hero */}
-      <div className="relative rounded-[3rem] overflow-hidden bg-gradient-to-br from-primary via-primary/90 to-indigo-600 p-10 shadow-2xl shadow-primary/20">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 80% 20%, white 0%, transparent 60%)' }} />
-        <div className="relative z-10 space-y-4">
-          <Badge className="bg-white/20 text-white border-none font-black text-[9px] uppercase tracking-widest px-3">
-            Bloomsbury Hall · Room A-402
-          </Badge>
-          <h1 className="text-5xl font-black text-white tracking-tight leading-tight">
-            Good morning, <br />Sarah! 👋
-          </h1>
-          <p className="text-white/70 font-medium text-base max-w-md">
-            Everything you need for your stay — all in one place.
-          </p>
-          <div className="flex flex-wrap gap-3 pt-2">
+      {/* Welcome hero - More sophisticated */}
+      <div className="relative rounded-[3.5rem] overflow-hidden bg-slate-950 p-12 shadow-2xl border border-white/5">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-indigo-500/20 opacity-50" />
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
+        <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-[80px]" />
+        
+        <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div className="space-y-6">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] font-black text-white/70 uppercase tracking-widest">Bloomsbury Hall · A-402</span>
+            </div>
+            <div className="space-y-2">
+              <h1 className="text-6xl font-black text-white tracking-tight leading-tight">
+                Welcome home, <br /><span className="text-primary">Sarah.</span>
+              </h1>
+              <p className="text-white/40 font-medium text-lg max-w-md leading-relaxed">
+                Your sanctuary is ready. You have <span className="text-white/80 font-bold">2 notifications</span> requiring attention today.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Button size="sm" className="bg-primary text-white font-black text-[10px] uppercase tracking-widest h-10 px-6 rounded-xl shadow-lg shadow-primary/20">
+                View My Keycard
+              </Button>
+              <Button variant="outline" size="sm" className="bg-white/5 border-white/10 text-white font-black text-[10px] uppercase tracking-widest h-10 px-6 rounded-xl hover:bg-white/10 transition-all">
+                Quick Support
+              </Button>
+            </div>
+          </div>
+          
+          <div className="hidden lg:block w-px h-48 bg-white/10 mx-8" />
+          
+          <div className="grid grid-cols-2 gap-4 md:w-80">
             {[
-              { label: '£1,240 due Apr 01',  color: 'bg-amber-400/20 text-amber-200' },
-              { label: '1 meal left today',  color: 'bg-white/10 text-white/70' },
-              { label: '0 active requests',  color: 'bg-emerald-400/20 text-emerald-200' },
-            ].map((tag, i) => (
-              <span key={i} className={`text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full ${tag.color}`}>
-                {tag.label}
-              </span>
+              { label: 'Rent Balance', val: '£1,240', sub: 'Due Apr 01', color: 'text-primary' },
+              { label: 'Meal Credits', val: '12', sub: 'Refills in 2d', color: 'text-emerald-400' },
+              { label: 'Active Tasks', val: '0', sub: 'All clear', color: 'text-white/40' },
+              { label: 'Energy Usage', val: 'Low', sub: 'Top 10%', color: 'text-amber-400' },
+            ].map((box, i) => (
+              <div key={i} className="bg-white/5 border border-white/10 rounded-3xl p-5 backdrop-blur-sm">
+                <p className="text-[9px] font-black uppercase tracking-widest text-white/30 mb-1">{box.label}</p>
+                <p className={cn("text-xl font-black", box.color)}>{box.val}</p>
+                <p className="text-[9px] font-bold text-white/20 uppercase mt-1">{box.sub}</p>
+              </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Quick access services */}
-      <div className="space-y-4">
-        <h2 className="text-sm font-black uppercase tracking-widest text-muted-foreground px-1">My Services</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {/* Quick access services - Refined cards */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between px-2">
+          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">Essential Services</h2>
+          <span className="text-[10px] font-bold text-primary uppercase tracking-widest">View All Services</span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { label: 'Meals',       sub: 'View today\'s menu',   icon: UtensilsCrossed, href: '/dashboard/tenants/meals',       color: 'text-orange-500', bg: 'bg-orange-500/10' },
-            { label: 'Laundry',     sub: 'Book a machine',        icon: Zap,             href: '/dashboard/tenants/laundry',     color: 'text-blue-500',   bg: 'bg-blue-500/10' },
-            { label: 'Invoices',    sub: '1 payment pending',     icon: Wallet,          href: '/dashboard/tenants/invoices',    color: 'text-amber-500',  bg: 'bg-amber-500/10', urgent: true },
-            { label: 'Maintenance', sub: '1 ticket in progress',  icon: Settings,        href: '/dashboard/tenants/maintenance', color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
+            { label: 'Dining Hall', sub: 'Today\'s Special: Beef Bourguignon', icon: UtensilsCrossed, color: 'text-orange-500', bg: 'bg-orange-500/10', border: 'hover:border-orange-500/20' },
+            { label: 'Smart Laundry', sub: '3 machines available now', icon: Zap, color: 'text-blue-500', bg: 'bg-blue-500/10', border: 'hover:border-blue-500/20' },
+            { label: 'Finance Hub', sub: 'Next payment due in 5 days', icon: Wallet, color: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'hover:border-emerald-500/20' },
+            { label: 'Maintenance', sub: 'Report a new issue', icon: Settings, color: 'text-indigo-500', bg: 'bg-indigo-500/10', border: 'hover:border-indigo-500/20' },
           ].map((s, i) => (
-            <a key={i} href={s.href} className={`group p-6 rounded-[2rem] border ${(s as any).urgent ? 'border-amber-500/20 bg-amber-500/5' : 'border-border/40 bg-card'} hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex flex-col gap-4`}>
-              <div className={`w-12 h-12 rounded-2xl flex items-center justify-center ${s.bg} ${s.color}`}>
-                <s.icon className="w-5 h-5" />
+            <Card key={i} className={cn(
+              "p-8 rounded-[2.5rem] border border-border/40 bg-card hover:shadow-2xl hover:-translate-y-1 transition-all duration-500 group flex flex-col gap-6",
+              s.border
+            )}>
+              <div className={cn("w-14 h-14 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 duration-500", s.bg, s.color)}>
+                <s.icon className="w-6 h-6" />
               </div>
-              <div>
-                <p className="font-black text-sm">{s.label}</p>
-                <p className={`text-[10px] font-bold uppercase ${(s as any).urgent ? 'text-amber-500' : 'text-muted-foreground'}`}>{s.sub}</p>
+              <div className="space-y-1">
+                <p className="font-black text-lg text-foreground">{s.label}</p>
+                <p className="text-xs text-muted-foreground font-medium leading-snug">{s.sub}</p>
               </div>
-              <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all mt-auto" />
-            </a>
+              <div className="mt-auto pt-4 flex items-center justify-between">
+                <span className="text-[10px] font-black uppercase tracking-widest text-primary opacity-0 group-hover:opacity-100 transition-all">Open Service</span>
+                <ArrowRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-primary group-hover:translate-x-1 transition-all" />
+              </div>
+            </Card>
           ))}
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-
-          {/* At a glance: my balance + today's meal */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="p-7 border-border/40 bg-card rounded-[2.5rem] space-y-4 shadow-sm">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
-                  <Wallet className="w-4 h-4" />
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        {/* Main Feed */}
+        <div className="lg:col-span-8 space-y-8">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+             {/* Dynamic Notice Board */}
+            <Card className="p-8 border-border/40 bg-card rounded-[2.5rem] shadow-sm space-y-6 overflow-hidden relative group">
+              <div className="flex items-center gap-3 relative z-10">
+                <div className="w-10 h-10 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                  <Bell className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">My Balance</span>
+                <span className="text-xs font-black uppercase tracking-widest text-foreground">Hall Notices</span>
               </div>
-              <div>
-                <p className="text-4xl font-black">£1,240.00</p>
-                <p className="text-xs font-bold text-amber-500 uppercase mt-1">Due: April 01, 2026</p>
+              <div className="space-y-4 relative z-10">
+                <div className="p-4 rounded-2xl bg-muted/30 border border-border/40 space-y-1">
+                  <p className="text-xs font-black text-foreground">Summer Ball Tickets</p>
+                  <p className="text-[11px] text-muted-foreground font-medium">Early bird tickets available from Monday at reception.</p>
+                </div>
+                <div className="p-4 rounded-2xl bg-primary/5 border border-primary/10 space-y-1">
+                  <p className="text-xs font-black text-primary">Wellness Week</p>
+                  <p className="text-[11px] text-muted-foreground font-medium">Free yoga sessions in the common room every 8AM.</p>
+                </div>
               </div>
-              <Button size="sm" className="w-full h-10 rounded-xl font-black text-[10px] uppercase bg-primary text-white shadow-lg shadow-primary/20">
-                Pay Now
-              </Button>
+              <div className="absolute -bottom-12 -right-12 w-32 h-32 bg-primary/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-1000" />
             </Card>
 
-            <Card className="p-7 border-border/40 bg-card rounded-[2.5rem] space-y-4 shadow-sm">
+            {/* Today's Special Card */}
+            <Card className="p-8 border-border/40 bg-card rounded-[2.5rem] shadow-sm space-y-6 group hover:border-orange-500/20 transition-all">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center">
-                  <UtensilsCrossed className="w-4 h-4" />
+                <div className="w-10 h-10 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center group-hover:bg-orange-500 group-hover:text-white transition-all">
+                  <UtensilsCrossed className="w-5 h-5" />
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Today's Dinner</span>
+                <span className="text-xs font-black uppercase tracking-widest text-foreground">Chef's Selection</span>
               </div>
-              <div>
-                <p className="text-xl font-black leading-tight">Slow-cooked Beef Bourguignon</p>
-                <p className="text-xs font-bold text-muted-foreground uppercase mt-1">🕰 18:30 – 20:30 · Chef Special</p>
+              <div className="space-y-2">
+                <p className="text-2xl font-black leading-tight text-foreground">Slow-cooked Beef Bourguignon</p>
+                <p className="text-xs font-bold text-muted-foreground uppercase">Served with buttered mash · 18:30</p>
               </div>
-              <Button size="sm" variant="outline" className="w-full h-10 rounded-xl font-bold text-[10px] uppercase border-border/40">
-                View Full Menu
+              <Button variant="outline" className="w-full h-12 rounded-2xl font-black text-[10px] uppercase tracking-widest border-border group-hover:border-orange-500/30 transition-all">
+                Book My Portion
               </Button>
             </Card>
           </div>
 
-          {/* Upcoming schedule */}
-          <Card className="border-border/40 bg-card rounded-[2.5rem] overflow-hidden shadow-sm">
-            <div className="px-7 pt-7 pb-4 flex items-center justify-between border-b border-border/20">
-              <h3 className="font-black text-base flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-primary" /> This Week
+          {/* Upcoming Schedule */}
+          <Card className="border-border/40 bg-card rounded-[3rem] overflow-hidden shadow-sm">
+            <div className="px-10 py-8 flex items-center justify-between border-b border-border/20 bg-muted/10">
+              <h3 className="font-black text-lg flex items-center gap-3">
+                <Calendar className="w-5 h-5 text-primary" /> Weekly Schedule
               </h3>
-              <Badge variant="outline" className="text-[9px] font-black border-border/40">Oct 27 – Nov 02</Badge>
+              <Badge className="bg-primary/10 text-primary border-none font-black text-[10px] uppercase px-4 py-1.5 rounded-full">Oct 27 – Nov 02</Badge>
             </div>
             <div className="divide-y divide-border/10">
               {[
-                { day: 'Tomorrow',  event: 'Rent payment reminder',     icon: Wallet,        color: 'text-amber-500',  bg: 'bg-amber-500/10' },
-                { day: 'Oct 28',    event: 'HVAC technician visit (10 AM)', icon: Wrench,    color: 'text-indigo-500', bg: 'bg-indigo-500/10' },
-                { day: 'Oct 28',    event: 'Water shutoff 10AM–2PM',    icon: Bell,          color: 'text-rose-500',   bg: 'bg-rose-500/10' },
-                { day: 'Oct 31',    event: 'Laundry booking slot open', icon: Zap,           color: 'text-blue-500',   bg: 'bg-blue-500/10' },
-                { day: 'Nov 01',    event: 'Monthly rent due',          icon: CreditCard,    color: 'text-primary',    bg: 'bg-primary/10' },
+                { day: 'Monday',  event: 'Rent payment window opens',     icon: Wallet,        color: 'text-emerald-500', bg: 'bg-emerald-500/10', time: '09:00' },
+                { day: 'Tuesday', event: 'HVAC Maintenance Check',       icon: Wrench,        color: 'text-indigo-500',  bg: 'bg-indigo-500/10',  time: '10:00' },
+                { day: 'Tuesday', event: 'Hall Social: Movie Night',      icon: Zap,           color: 'text-orange-500',  bg: 'bg-orange-500/10',  time: '20:00' },
+                { day: 'Friday',  event: 'Laundry booking slot open',     icon: Layers,        color: 'text-blue-500',    bg: 'bg-blue-500/10',    time: '08:00' },
+                { day: 'Sunday',  event: 'Monthly rent deadline',         icon: CreditCard,    color: 'text-rose-500',    bg: 'bg-rose-500/10',    time: '23:59' },
               ].map((e, i) => (
-                <div key={i} className="flex items-center gap-4 px-7 py-4 hover:bg-muted/20 transition-colors group">
-                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${e.bg} ${e.color}`}>
-                    <e.icon className="w-4 h-4" />
+                <div key={i} className="flex items-center gap-6 px-10 py-6 hover:bg-muted/30 transition-colors group cursor-pointer">
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${e.bg} ${e.color}`}>
+                    <e.icon className="w-5 h-5" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-bold text-sm truncate">{e.event}</p>
+                    <p className="font-black text-base text-foreground truncate">{e.event}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase mt-1">{e.day} · {e.time}</p>
                   </div>
-                  <span className="text-[10px] font-black text-muted-foreground/40 uppercase shrink-0">{e.day}</span>
+                  <ChevronRight className="w-5 h-5 text-muted-foreground/20 group-hover:text-primary transition-all" />
                 </div>
               ))}
             </div>
@@ -566,54 +783,75 @@ export function DashboardContent({ role, tier = 'normal' }: DashboardContentProp
 
         </div>
 
-        {/* Right column */}
-        <div className="space-y-6">
-
-          {/* Room & contacts */}
-          <Card className="p-6 border-border/40 bg-card rounded-[2.5rem] space-y-5 shadow-sm">
-            <h3 className="font-black text-sm flex items-center gap-2">
-              <Building2 className="w-4 h-4 text-primary" /> My Room
-            </h3>
-            <div className="p-5 rounded-2xl bg-primary/5 border border-primary/10 space-y-3">
-              <div className="flex items-center justify-between">
-                <p className="text-3xl font-black">A-402</p>
-                <Badge className="bg-primary/10 text-primary border-none font-black text-[9px] px-3">Floor 4</Badge>
-              </div>
-              <p className="text-xs font-bold text-muted-foreground uppercase">Bloomsbury Hall · En-suite</p>
+        {/* Sidebar */}
+        <div className="lg:col-span-4 space-y-8">
+          
+          {/* Quick Stats/Room Info */}
+          <Card className="p-8 border-border/40 bg-card rounded-[3rem] space-y-8 shadow-sm relative overflow-hidden">
+            <div className="flex items-center justify-between relative z-10">
+              <h3 className="font-black text-sm uppercase tracking-widest text-muted-foreground">My Room</h3>
+              <Badge className="bg-primary text-white border-none font-black text-[9px] px-3 py-1 rounded-lg">Floor 4</Badge>
             </div>
-            <div className="space-y-2">
-              {[
-                { label: 'Reception',  value: '+44 20 7946 0001', icon: Phone },
-                { label: 'Security',   value: '+44 20 7946 0002', icon: Shield },
-                { label: 'Support',    value: 'help@dormify.com',  icon: Mail },
-              ].map((c, i) => (
-                <div key={i} className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-muted/30 transition-colors">
-                  <c.icon className="w-3.5 h-3.5 text-primary shrink-0" />
-                  <div className="min-w-0">
-                    <p className="text-[9px] font-black uppercase text-muted-foreground">{c.label}</p>
-                    <p className="text-xs font-bold truncate">{c.value}</p>
+            <div className="space-y-2 relative z-10">
+              <p className="text-6xl font-black text-foreground tracking-tighter">A-402</p>
+              <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">En-suite · Private Balcony</p>
+            </div>
+            
+            <div className="space-y-3 pt-4 relative z-10">
+               {[
+                { label: 'Temp', val: '22°C', icon: Zap },
+                { label: 'Wi-Fi', val: 'Connected', icon: Activity },
+                { label: 'Lock', val: 'Secured', icon: ShieldCheck },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-muted/30 border border-border/40">
+                  <div className="flex items-center gap-3">
+                    <item.icon className="w-4 h-4 text-primary" />
+                    <span className="text-[10px] font-black uppercase text-muted-foreground">{item.label}</span>
                   </div>
+                  <span className="text-xs font-black text-foreground">{item.val}</span>
                 </div>
               ))}
             </div>
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl" />
           </Card>
 
-          {/* Quick links */}
-          <Card className="p-6 border-border/40 bg-card rounded-[2.5rem] space-y-3 shadow-sm">
-            <h3 className="font-black text-sm">Quick <span className="text-muted-foreground/30">Links</span></h3>
-            {[
-              { label: 'View My Profile',       href: '/dashboard/tenants/profile',     icon: Users },
-              { label: 'Download Tenancy Docs', href: '/dashboard/tenants/profile',     icon: FileText },
-              { label: 'Submit Feedback',       href: '/dashboard/tenants/maintenance', icon: MessageSquare },
-            ].map((l, i) => (
-              <a key={i} href={l.href} className="flex items-center gap-3 p-3 rounded-2xl border border-border/30 hover:bg-muted/30 transition-all group">
-                <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                  <l.icon className="w-3.5 h-3.5" />
+          {/* Quick Actions/Contacts */}
+          <div className="space-y-4">
+             <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground px-2">Instant Help</h3>
+             <div className="grid grid-cols-1 gap-3">
+                {[
+                  { label: 'Call Reception', icon: Phone },
+                  { label: 'Emergency Security', icon: Shield },
+                  { label: 'Live Support Chat', icon: MessageSquare },
+                ].map((act, i) => (
+                  <Button key={i} variant="outline" className="h-16 justify-start gap-4 px-6 rounded-[1.5rem] border-border bg-card hover:bg-primary/5 hover:border-primary/20 transition-all group">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                      <act.icon className="w-5 h-5" />
+                    </div>
+                    <span className="font-black text-xs uppercase tracking-widest">{act.label}</span>
+                  </Button>
+                ))}
+             </div>
+          </div>
+
+          {/* Documents/Links */}
+          <Card className="p-8 border-border/40 bg-card rounded-[3rem] shadow-sm space-y-6">
+            <h3 className="font-black text-sm uppercase tracking-widest text-muted-foreground">Documents</h3>
+            <div className="space-y-3">
+              {[
+                'Tenancy Agreement.pdf',
+                'Hall Rules & Safety.pdf',
+                'Insurance Policy.pdf',
+              ].map((doc, i) => (
+                <div key={i} className="flex items-center justify-between group cursor-pointer">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <span className="text-xs font-bold text-foreground group-hover:underline">{doc}</span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-primary transition-all" />
                 </div>
-                <span className="font-bold text-xs flex-1">{l.label}</span>
-                <ChevronRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
-              </a>
-            ))}
+              ))}
+            </div>
           </Card>
 
         </div>

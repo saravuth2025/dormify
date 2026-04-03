@@ -44,7 +44,7 @@ const tickets: MaintenanceTicket[] = [
 
 export function MaintenanceContent({ title, tier }: { title: string, tier: 'normal' | 'pro' | 'premium' }) {
   return (
-    <div className="max-w-[1200px] mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
 
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/40 pb-4">
         <div>

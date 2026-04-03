@@ -23,32 +23,8 @@ import {
 } from '@/components/landing/constants';
 
 export default function LandingPage() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
-  
-  // Wait until next animation frame to ensure DOM is settled
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const id = requestAnimationFrame(() => {
-      setMounted(true);
-    });
-    return () => cancelAnimationFrame(id);
-  }, []);
-  
   const { scrollYProgress: pageScroll } = useScroll();
   
-  const { scrollYProgress: heroScroll } = useScroll(
-    mounted && heroRef.current 
-      ? {
-          target: heroRef,
-          offset: ["start start", "end start"]
-        }
-      : ({} as any)
-  );
-
-  const heroOpacity = useTransform(heroScroll, [0, 0.6], [1, 0]);
-  const heroScale = useTransform(heroScroll, [0, 0.6], [1, 0.85]);
-  const heroTextY = useTransform(heroScroll, [0, 0.6], [0, -100]);
   const fadeInUp = ANIMATION_VARIANTS.fadeInUp;
   const staggerContainer = ANIMATION_VARIANTS.staggerContainer;
 

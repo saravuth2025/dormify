@@ -78,9 +78,9 @@ export function LaundryContent({ title, tier = 'normal', role = 'admin' }: Laund
     <motion.div
       initial="hidden"
       animate="visible"
-      variants={containerVariants}
-      className="max-w-[1400px] mx-auto space-y-10 pb-20"
-    >
+      variants={containerVariants}>
+      <div 
+        className="space-y-10 pb-20">
 
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 pb-8 border-b border-border/40">
         <div className="space-y-1">
@@ -294,6 +294,7 @@ export function LaundryContent({ title, tier = 'normal', role = 'admin' }: Laund
           </Card>
 
         </div>
+      </div>
       </div>
     </motion.div>
   );

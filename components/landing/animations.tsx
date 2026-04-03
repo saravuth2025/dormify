@@ -75,8 +75,10 @@ export const ScrollRevealText = ({ children, className }: { children: React.Reac
 };
 
 const ScrollRevealTextClient = forwardRef<HTMLDivElement, { children: React.ReactNode, className?: string }>(({ children, className }, ref) => {
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
+  
   const { scrollYProgress } = useScroll({
-    target: ref as any,
+    target: element ? { current: element } : undefined,
     offset: ["start end", "end center"]
   });
 
@@ -85,7 +87,18 @@ const ScrollRevealTextClient = forwardRef<HTMLDivElement, { children: React.Reac
   const scale = useTransform(scrollYProgress, [0, 0.5, 0.8], [0.95, 1, 1]);
 
   return (
-    <motion.div ref={ref} style={{ opacity, y, scale }} className={className}>
+    <motion.div 
+      ref={(node) => {
+        setElement(node);
+        if (typeof ref === 'function') {
+          ref(node);
+        } else if (ref) {
+          ref.current = node;
+        }
+      }} 
+      style={{ opacity, y, scale }} 
+      className={className}
+    >
       {children}
     </motion.div>
   );

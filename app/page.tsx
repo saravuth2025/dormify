@@ -15,24 +15,17 @@ import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Navigation } from '@/components/landing/Navigation';
+import { Hero } from '@/components/landing/Hero';
 import { TypingHeadline, ScrollRevealText, DriftingElement } from '@/components/landing/animations';
 import {
   STATS, SERVICES, INSTITUTIONAL_FEATURES, DINING_FEATURES,
   RESIDENT_FEATURES, PRICING_PLANS, FAQ_ITEMS, ANIMATION_VARIANTS
 } from '@/components/landing/constants';
+import { Footer } from '@/components/landing/Footer';
 
 export default function LandingPage() {
-  const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: pageScroll } = useScroll();
   
-  const { scrollYProgress: heroScroll } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"]
-  });
-
-  const heroOpacity = useTransform(heroScroll, [0, 0.6], [1, 0]);
-  const heroScale = useTransform(heroScroll, [0, 0.6], [1, 0.85]);
-  const heroTextY = useTransform(heroScroll, [0, 0.6], [0, -100]);
   const fadeInUp = ANIMATION_VARIANTS.fadeInUp;
   const staggerContainer = ANIMATION_VARIANTS.staggerContainer;
 
@@ -44,6 +37,81 @@ export default function LandingPage() {
       />
 
       <Navigation />
+
+      <Hero />
+
+      {/* Stats Section */}
+      <section className="relative py-10 bg-muted/20 border-y border-border/50">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+            {STATS.map((stat, i) => (
+              <motion.div 
+                key={i}
+                initial={{ opacity: 0, y: 5 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ delay: i * 0.05, duration: 0.4 }}
+                className="text-center space-y-0.5"
+              >
+                <h4 className="text-xl md:text-2xl font-black tracking-tighter text-foreground">
+                  {stat.value}
+                </h4>
+                <p className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/40">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Four Services Section */}
+      <section className="relative py-32 px-6 overflow-hidden bg-background border-b border-border">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-20 space-y-6"
+          >
+            <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground">
+              Core Services
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-medium">
+              Everything you need to manage modern dormitories in one unified platform
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {SERVICES.map((service, idx) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ delay: idx * 0.1, duration: 0.6 }}
+              >
+                <Card className="h-full p-8 hover:shadow-xl transition-all duration-300 border-border hover:border-primary/50 group cursor-pointer bg-card/50 backdrop-blur">
+                  <div className={`w-16 h-16 rounded-2xl mb-6 flex items-center justify-center ${service.iconBg} group-hover:scale-110 transition-transform`}>
+                    <service.icon className={`w-8 h-8 ${service.iconColor}`} />
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <p className="text-sm font-black text-primary uppercase tracking-widest">{service.id}</p>
+                    <h3 className="text-2xl font-bold tracking-tight text-foreground">{service.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{service.desc}</p>
+                  </div>
+
+                  <div className="mt-6 pt-6 border-t border-border">
+                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                  </div>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section id="institutional" className="py-32 bg-background border-t border-border">
         <div className="max-w-7xl mx-auto px-6">
@@ -533,49 +601,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <footer className="py-20 bg-muted/30 border-t border-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-16">
-            <div className="col-span-2 space-y-6">
-              <Link href="/" className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">
-                  <Building2 className="w-4 h-4" />
-                </div>
-                <span className="font-bold text-xl">Dormify</span>
-              </Link>
-              <p className="text-muted-foreground text-sm leading-relaxed max-w-xs">
-                Advanced property management for modern campus living.
-              </p>
-              <div className="flex gap-4">
-                 {[MessageSquare, Globe, HelpCircle].map((Icon, i) => (
-                   <div key={i} className="w-10 h-10 bg-card border border-border rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary transition-colors cursor-pointer">
-                      <Icon className="w-4 h-4" />
-                   </div>
-                 ))}
-              </div>
-            </div>
-            
-            {['Ecosystem', 'Resources', 'Corporate', 'Legal'].map((group) => (
-              <div key={group}>
-                <h5 className="font-bold text-[10px] uppercase tracking-widest mb-6">{group}</h5>
-                <ul className="space-y-3 text-sm text-muted-foreground font-medium">
-                  <li><a href="#" className="hover:text-primary transition-colors">Link One</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Link Two</a></li>
-                </ul>
-              </div>
-            ))}
-          </div>
-          
-          <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-muted-foreground">
-            <div>&copy; {new Date().getFullYear()} Dormify Systems Inc.</div>
-            <div className="flex gap-8 uppercase tracking-widest text-[9px]">
-              <span>Silicon Valley</span>
-              <span>London</span>
-              <span>Singapore</span>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

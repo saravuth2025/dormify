@@ -42,7 +42,7 @@ export function MealsContent({ title, tier = 'normal', role = 'admin' }: MealsCo
     ];
 
     return (
-      <div className="max-w-[1400px] mx-auto space-y-8 animate-in fade-in duration-700">
+      <div className="space-y-8 animate-in fade-in duration-700">
 
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 pb-6 border-b border-border/40">
           <div className="space-y-1">
@@ -263,7 +263,7 @@ export function MealsContent({ title, tier = 'normal', role = 'admin' }: MealsCo
   ];
 
   return (
-    <div className="max-w-[1400px] mx-auto space-y-8 animate-in fade-in duration-700">
+    <div className="space-y-8 animate-in fade-in duration-700">
 
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 pb-4 border-b border-border/40">
         <div>

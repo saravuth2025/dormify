@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { cn } from '@/lib/utils';
 import { DataTable } from './data-table';
@@ -167,65 +168,125 @@ export function ModuleContent({ title, type, tier = 'normal', role = 'admin' }: 
       {
         name: 'Bloomsbury Hall',
         campus: 'North Campus',
-        occupancy: '98%',
-        yield: '£42.5k',
+        occupancy: 98,
+        yield: '£42,500',
         status: 'Optimal',
         tickets: 2,
         systems: { power: 'ok', water: 'ok', security: 'ok', wifi: 'issue' },
         units: 120,
-        image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1555854877-bab0e564b8d5?q=80&w=200'
       },
       {
         name: 'Borough Wing',
         campus: 'South Campus',
-        occupancy: '82%',
-        yield: '£31.2k',
+        occupancy: 82,
+        yield: '£31,200',
         status: 'Review',
         tickets: 8,
         systems: { power: 'ok', water: 'alert', security: 'ok', wifi: 'ok' },
         units: 85,
-        image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=200'
       },
       {
         name: 'Paddington Court',
         campus: 'East Campus',
-        occupancy: '94%',
-        yield: '£38.9k',
+        occupancy: 94,
+        yield: '£38,900',
         status: 'Optimal',
         tickets: 0,
         systems: { power: 'ok', water: 'ok', security: 'ok', wifi: 'ok' },
         units: 110,
-        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?q=80&w=200'
       },
     ];
 
     return (
-      <div className="space-y-4 animate-in fade-in duration-700">
-        <div className="flex justify-between items-end border-b border-border/40 pb-4">
-           <div className="space-y-0.5">
-              <h1 className="text-2xl font-black tracking-tight text-foreground">Campus <span className="text-muted-foreground/30">Assets</span></h1>
-              <p className="text-xs text-muted-foreground font-medium">Portfolio oversight and infrastructure control.</p>
+      <div className="space-y-8 animate-in fade-in duration-700 pb-10">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-border/40">
+           <div className="space-y-2">
+              <div className="inline-flex items-center gap-2 px-2 py-0.5 rounded-full bg-primary/5 border border-primary/10">
+                 <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                 <span className="text-[9px] font-bold uppercase tracking-widest text-primary">Portfolio Live</span>
+              </div>
+              <h1 className="text-4xl font-black tracking-tight text-foreground">Campus <span className="text-muted-foreground/30 font-medium">Assets</span></h1>
+              <p className="text-muted-foreground font-medium text-base max-w-xl leading-snug">Strategic oversight and infrastructure control.</p>
            </div>
-           <Button className="rounded-xl h-9 px-4 font-black bg-primary text-primary-foreground shadow-lg shadow-primary/20 text-[11px]">Add Asset</Button>
+           <Button className="rounded-xl h-10 px-6 font-black bg-primary text-primary-foreground shadow-lg shadow-primary/20 text-xs">
+              Add New Asset
+           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <div className="grid grid-cols-1 gap-4">
            {dorms.map((dorm, i) => (
-             <Card key={i} className="group overflow-hidden border-border/40 bg-card rounded-[2rem] shadow-sm hover:shadow-xl transition-all">
-                <div className="h-40 relative overflow-hidden">
-                   <img src={dorm.image} className="w-full h-full object-cover transition-transform group-hover:scale-110" />
-                   <div className="absolute inset-0 bg-black/40" />
-                   <div className="absolute bottom-4 left-6">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">{dorm.campus}</p>
-                      <h3 className="text-xl font-black text-white">{dorm.name}</h3>
+             <Card key={i} className="group overflow-hidden border-border/40 bg-card rounded-[2rem] shadow-sm hover:shadow-xl transition-all p-6">
+                <div className="flex flex-col lg:flex-row gap-8 items-center">
+                   {/* Thumbnail */}
+                   <div className="w-full lg:w-48 h-32 rounded-2xl overflow-hidden shrink-0">
+                      <img src={dorm.image} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" />
                    </div>
-                </div>
-                <div className="p-6 space-y-6">
-                   <div className="flex justify-between text-center">
-                      <div><p className="text-[9px] font-bold text-muted-foreground uppercase mb-1">Occupancy</p><p className="text-sm font-black">{dorm.occupancy}</p></div>
-                      <div><p className="text-[9px] font-bold text-muted-foreground uppercase mb-1">Yield</p><p className="text-sm font-black">{dorm.yield}</p></div>
-                      <div><p className="text-[9px] font-bold text-muted-foreground uppercase mb-1">Status</p><Badge variant="outline" className="text-[9px] border-border">{dorm.status}</Badge></div>
+
+                   {/* Main Info */}
+                   <div className="flex-1 min-w-0 space-y-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                         <div>
+                            <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-1">{dorm.campus}</p>
+                            <h3 className="text-2xl font-black text-foreground">{dorm.name}</h3>
+                         </div>
+                         <Badge className={cn(
+                            "text-[10px] font-black uppercase px-3 py-1 rounded-full border-none",
+                            dorm.status === 'Optimal' ? "bg-emerald-500/10 text-emerald-600" : "bg-amber-500/10 text-amber-600"
+                         )}>
+                            {dorm.status}
+                         </Badge>
+                      </div>
+
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-4 border-t border-border/10">
+                         <div>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Occupancy</p>
+                            <div className="flex items-center gap-2">
+                               <span className="text-sm font-black">{dorm.occupancy}%</span>
+                               <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden max-w-[60px]">
+                                  <div className="h-full bg-primary" style={{ width: `${dorm.occupancy}%` }} />
+                               </div>
+                            </div>
+                         </div>
+                         <div>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Monthly Yield</p>
+                            <p className="text-sm font-black text-foreground">{dorm.yield}</p>
+                         </div>
+                         <div>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Systems</p>
+                            <div className="flex gap-1.5">
+                               {Object.entries(dorm.systems).map(([sys, status], idx) => (
+                                 <div key={idx} className={cn(
+                                    "w-4 h-4 rounded-sm flex items-center justify-center",
+                                    status === 'ok' ? "text-emerald-500" : status === 'alert' ? "text-rose-500" : "text-amber-500"
+                                 )}>
+                                    {sys === 'wifi' ? <Globe className="w-3 h-3" /> : 
+                                     sys === 'power' ? <Zap className="w-3 h-3" /> : 
+                                     sys === 'water' ? <Activity className="w-3 h-3" /> : <Shield className="w-3 h-3" />}
+                                 </div>
+                               ))}
+                            </div>
+                         </div>
+                         <div>
+                            <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mb-1">Alerts</p>
+                            <p className={cn("text-sm font-black", dorm.tickets > 0 ? "text-rose-500" : "text-muted-foreground/30")}>
+                               {dorm.tickets} Active
+                            </p>
+                         </div>
+                      </div>
                    </div>
-                   <Button variant="outline" className="w-full h-10 rounded-xl font-bold text-xs uppercase tracking-widest">Manage building</Button>
+
+                   {/* Action */}
+                   <div className="flex lg:flex-col gap-2 w-full lg:w-auto">
+                      <Button variant="outline" className="flex-1 lg:w-32 rounded-xl font-bold text-[10px] uppercase tracking-widest h-10 border-border/40">
+                         View Details
+                      </Button>
+                      <Button className="flex-1 lg:w-32 rounded-xl font-black text-[10px] uppercase tracking-widest h-10 bg-foreground text-background hover:bg-foreground/90 transition-all">
+                         Manage
+                      </Button>
+                   </div>
                 </div>
              </Card>
            ))}
@@ -563,34 +624,41 @@ export function ModuleContent({ title, type, tier = 'normal', role = 'admin' }: 
       { name: 'Monthly Financial Summary', date: 'Mar 01, 2026', size: '1.2 MB', type: 'PDF' },
       { name: 'Occupancy Analysis', date: 'Feb 28, 2026', size: '2.4 MB', type: 'XLSX' },
       { name: 'Maintenance Log', date: 'Feb 25, 2026', size: '0.8 MB', type: 'PDF' },
+      { name: 'Staff Attendance', date: 'Feb 20, 2026', size: '1.5 MB', type: 'PDF' },
     ];
 
     return (
-      <div className="space-y-6 animate-in fade-in duration-700">
-        <div className="flex justify-between items-center border-b border-border/40 pb-4">
-           <h2 className="text-2xl font-black tracking-tight">System <span className="text-muted-foreground/30">Reports</span></h2>
-           <Button className="rounded-xl h-9 px-4 font-black bg-primary text-white shadow-lg shadow-primary/20 text-[11px]">Schedule Report</Button>
+      <div className="space-y-6 animate-in fade-in duration-500">
+        <div className="flex flex-col gap-1 border-b border-border/10 pb-6">
+           <h2 className="text-2xl font-black tracking-tight text-foreground">System Reports</h2>
+           <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">Operational logs and summaries</p>
         </div>
-        <div className="grid gap-2">
+
+        <div className="grid gap-px bg-border/5 border border-border/10 rounded-2xl overflow-hidden shadow-sm">
            {reports.map((report, i) => (
-             <Card key={i} className="p-4 border-border/40 bg-card rounded-xl flex items-center justify-between hover:bg-muted/10 transition-all cursor-pointer">
-                <div className="flex items-center gap-3">
-                   <div className="w-10 h-10 rounded-lg bg-muted/30 flex items-center justify-center text-muted-foreground/40"><FileText className="w-5 h-5" /></div>
+             <div key={i} className="group p-5 bg-card hover:bg-muted/20 transition-all flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                   <div className="w-10 h-10 rounded-xl bg-primary/5 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+                      <FileText className="w-5 h-5" />
+                   </div>
                    <div>
-                      <h3 className="font-bold text-foreground/80 text-sm">{report.name}</h3>
-                      <p className="text-[9px] font-bold text-muted-foreground uppercase">{report.date} • {report.size}</p>
+                      <h3 className="font-bold text-sm text-foreground">{report.name}</h3>
+                      <p className="text-[10px] font-medium text-muted-foreground uppercase tracking-wider">{report.date} • {report.size}</p>
                    </div>
                 </div>
-                <div className="flex items-center gap-2">
-                   <Badge variant="outline" className="text-[8px] font-black uppercase px-1.5">{report.type}</Badge>
-                   <Button variant="ghost" size="icon" className="rounded-lg h-8 w-8"><ArrowDownRight className="w-3.5 h-3.5" /></Button>
+                <div className="flex items-center gap-3">
+                   <Badge variant="outline" className="text-[8px] font-black uppercase border-border/40 bg-muted/20 px-1.5 h-4">{report.type}</Badge>
+                   <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-primary transition-colors">
+                      <Download className="w-4 h-4" />
+                   </Button>
                 </div>
-             </Card>
+             </div>
            ))}
         </div>
       </div>
     );
   }
+
 
   if (type === 'rooms') {
     const rooms = [
